@@ -3,8 +3,10 @@ services:
     name: x-reply-counter
     env: python
     buildCommand: |
-      apt-get update && apt-get install -y wget curl gnupg unzip
+      apt-get update && apt-get install -y wget curl gnupg unzip fonts-liberation
       && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       && apt install -y ./google-chrome-stable_current_amd64.deb
       && pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.port 10000
+    startCommand: |
+      export PATH=$PATH:/usr/bin/google-chrome \
+      && streamlit run app.py --server.port 10000 --server.enableCORS false
